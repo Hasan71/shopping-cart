@@ -88,6 +88,7 @@
       const productPrice_02 = document.getElementById("currentCasePrice").innerText;
       const coverPrice = parseFloat(productPrice_02 );
 
+      //plus button event handler with Phone
       const phonePlus = document.getElementById("phonePlus");
       phonePlus.addEventListener("click", function(){
 
@@ -95,6 +96,7 @@
             subTotal("phonePrice", mobilePrice);
       })
 
+      //Minus button event handler with Phone
       const phoneMinus = document.getElementById("phoneMinus");
       phoneMinus.addEventListener("click", function(){
 
@@ -107,12 +109,14 @@
          }
       })
       
+      //plus button event handler with Case
       const casePlus = document.getElementById("casePlus");
       casePlus.addEventListener("click", function(){
          amountButton("caseItem", buttonClick);
          subTotal("phonePrice", coverPrice);
       })
 
+      //Minus button event handler with Case
       const caseMinus = document.getElementById("caseMinus");
       caseMinus.addEventListener("click", function(){
 
@@ -126,6 +130,7 @@
         
       })
 
+      // function to increse or decrease product amount
       function amountButton(id, buttonClick){
          const itemInput = document.getElementById(id).value;
          const itemNumber = parseFloat(itemInput);
@@ -133,6 +138,7 @@
          document.getElementById(id).value = itemchange;
       }
 
+      //function to calculate bill
       function subTotal (id, price){
 
          const itemPrice = document.getElementById(id).innerText;
@@ -140,20 +146,19 @@
          const subTotalPrice = priceAmount + price;
          document.getElementById(id).innerText = subTotalPrice;
 
-         const totalTax = (subTotalPrice * 7) / 100 ;
+         const totalTax = (subTotalPrice * 7) / 100 ; //applying 7% tax
          document.getElementById("tax").innerText = totalTax;
 
          const totalPrice =  subTotalPrice + totalTax;
-         const totalPriceInt = parseInt(totalPrice);
+         const totalPriceInt = parseInt(totalPrice); //avoiding float number in final bill
          document.getElementById("totalBill").innerText = totalPriceInt;
 
       }
-
+      //function for disabling minus button.
       function disableButton(id) {
          document.getElementById("id").disabled = true;
-}
+      }
       
-
    </script>
 
 </body>

@@ -3,8 +3,9 @@ body{
 }
 .cart{
 	margin: 100px 0;
-	background-color: #F6F5FA;;
+	background-color:rgba(48, 104, 141, 0.507);
 	padding: 60px 0;
+	box-shadow: 5px 5px 10px rgb(108, 152, 153);
 }
 .total-price{
 	padding-bottom: 15px;
