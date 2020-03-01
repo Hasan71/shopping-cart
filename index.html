@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="phoneMinus" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input type="text" id="phoneItem" class="form-control text-center" value="0">
+                           <button  id="phonePlus" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5>$ <span id="currentPhonePrice">1219</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="caseMinus" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input type="text" id="caseItem" class="form-control text-center" value="0">
+                           <button id="casePlus" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$<span id="currentCasePrice">59</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -59,14 +59,14 @@
 
                      <div class="col-md-8">
                         <h5>Subtotal: </h5>
-                        <h5>Tax:</h5>
+                        <h5>Tax <small>(7%)</small>:</h5>
                         <h5>Total:</h5>
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="phonePrice">00</span></h5>
+                        <h5>$ <span id="tax"></span>00</span> </h5>
+                        <h5>$ <span id="totalBill">00</span> </h5>
                      </div>
                   </div>
                </div>
@@ -77,6 +77,85 @@
          </div>
       </div>
    </section>
+
+   <script>
+
+      var buttonClick = 1;
+
+      const productPrice_01 = document.getElementById("currentPhonePrice").innerText;
+      const mobilePrice = parseFloat(productPrice_01);
+
+      const productPrice_02 = document.getElementById("currentCasePrice").innerText;
+      const coverPrice = parseFloat(productPrice_02 );
+
+      const phonePlus = document.getElementById("phonePlus");
+      phonePlus.addEventListener("click", function(){
+
+            amountButton("phoneItem", buttonClick);
+            subTotal("phonePrice", mobilePrice);
+      })
+
+      const phoneMinus = document.getElementById("phoneMinus");
+      phoneMinus.addEventListener("click", function(){
+
+         if (document.getElementById("phoneItem").value == "0"){
+            disableButton(phoneMinus);
+         }
+         else{
+            amountButton("phoneItem", -1*buttonClick);
+            subTotal("phonePrice", -1*mobilePrice);
+         }
+      })
+      
+      const casePlus = document.getElementById("casePlus");
+      casePlus.addEventListener("click", function(){
+         amountButton("caseItem", buttonClick);
+         subTotal("phonePrice", coverPrice);
+      })
+
+      const caseMinus = document.getElementById("caseMinus");
+      caseMinus.addEventListener("click", function(){
+
+         if (document.getElementById("caseItem").value == "0"){
+            disableButton(casePlus);
+         }
+         else{
+            amountButton("caseItem", -1*buttonClick);
+            subTotal("phonePrice", -1*coverPrice);
+         }
+        
+      })
+
+      function amountButton(id, buttonClick){
+         const itemInput = document.getElementById(id).value;
+         const itemNumber = parseFloat(itemInput);
+         const itemchange = itemNumber + buttonClick;
+         document.getElementById(id).value = itemchange;
+      }
+
+      function subTotal (id, price){
+
+         const itemPrice = document.getElementById(id).innerText;
+         const priceAmount = parseFloat(itemPrice);
+         const subTotalPrice = priceAmount + price;
+         document.getElementById(id).innerText = subTotalPrice;
+
+         const totalTax = (subTotalPrice * 7) / 100 ;
+         document.getElementById("tax").innerText = totalTax;
+
+         const totalPrice =  subTotalPrice + totalTax;
+         const totalPriceInt = parseInt(totalPrice);
+         document.getElementById("totalBill").innerText = totalPriceInt;
+
+      }
+
+      function disableButton(id) {
+         document.getElementById("id").disabled = true;
+}
+      
+
+   </script>
+
 </body>
 
 </html>
